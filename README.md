@@ -1,7 +1,7 @@
-# apm
+# a2pjb
 Repositorio de la practica de APM del MUEI
 
-Grupo: (nombre de grupo aqui)
+Grupo: a2pjb
 
 Descripción del proyecto:
 
