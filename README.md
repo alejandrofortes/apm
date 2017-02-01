@@ -14,6 +14,6 @@ Alejandro (CEO + UX)
 
 Boris (Responsable de Realidad Aumentada)
 
-Javier (Responsable de Sensórica y Geolocalización)
+Javier Rochela Calvo(Responsable de Sensórica y Geolocalización)
 
 Pablo Gómez Area(Responsable de Social Media y APIs)
