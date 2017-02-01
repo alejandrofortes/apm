@@ -10,9 +10,9 @@ Descripción del proyecto:
 
 Miembros:
 
-Alejandro (CEO + UX)
+Alejandro Fortes Lopes (CEO + UX)
 
-Boris (Responsable de Realidad Aumentada)
+Boris Caballero Lenza (Responsable de Realidad Aumentada)
 
 Javier Rochela Calvo(Responsable de Sensórica y Geolocalización)
 
