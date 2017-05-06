@@ -8,5 +8,9 @@
     <!-- tabs -->
     <string name="officesTab">Despachos</string>
     <string name="othersTab">Otros</string>
+    <string name="Login">Login</string>
+    <string name="sign_out">Salir</string>
+    <string name="desconectar">Desconectar</string>
+    <string name="singOut">Salir</string>
 
 </resources>

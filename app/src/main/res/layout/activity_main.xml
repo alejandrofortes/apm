@@ -10,7 +10,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/appBarLayout">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -19,6 +20,7 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     </android.support.design.widget.AppBarLayout>
 
     <Button
@@ -34,7 +36,6 @@
         android:fontFamily="sans-serif-smallcaps"
         android:background="@color/colorAccent"
         android:textColor="@color/textColorPrimary"
-        android:drawableLeft="@mipmap/ic_map_marker"
         android:onClick="openNavigation"/>
 
     <Button
@@ -48,9 +49,36 @@
         android:fontFamily="sans-serif-smallcaps"
         android:background="@color/colorAccent"
         android:textColor="@color/textColorPrimary"
-        android:drawableLeft="@mipmap/ic_user_details"
         android:layout_alignLeft="@+id/buttonNavigation"
         android:layout_alignStart="@+id/buttonNavigation"
         android:layout_alignRight="@+id/buttonNavigation"
+        android:onClick="openNavigation"
         android:layout_alignEnd="@+id/buttonNavigation" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/buttonInformation"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/sing_out_button"
+        android:layout_width="wrap_content"
+        android:text="@string/singOut"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/buttonInformation"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"
+        android:text="" />
+
 </RelativeLayout>

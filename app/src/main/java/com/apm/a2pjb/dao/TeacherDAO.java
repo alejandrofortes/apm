@@ -1,0 +1,120 @@
+package com.apm.a2pjb.dao;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
+/**
+ * Created by pablo on 10/4/17.
+ */
+
+public class TeacherDAO extends AsyncTask<String, Void, String> {
+
+    private String url = "http://192.168.0.108:8080/api/";
+    private ArrayAdapter<String> adapter;
+    private ListView listView;
+    private String[] strParams;
+    private Context context;
+
+    public TeacherDAO(Context mContext, ListView listView) {
+        this.context = mContext;
+        this.listView = listView;
+    }
+
+    @Override
+    protected void onPreExecute(){
+        adapter = (ArrayAdapter<String>) listView.getAdapter();
+    }
+
+    @Override
+    protected String doInBackground(String... params) {
+        this.strParams = params;
+        String resource = (params != null && params.length > 0) ? params[0] : null;
+        String roomNumber = (params != null && params.length > 1) ? params[1] : null;
+        String fullUrl = (resource != null) ? url+resource+"/": url;
+        fullUrl = (roomNumber != null) ? fullUrl+"/"+roomNumber: fullUrl;
+
+        try{
+            if (roomNumber == null){
+                return getTeachers(fullUrl);
+            }
+        } catch (IOException e) {
+            Log.d("Error", "error", e);
+            return null;
+        }
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        try{
+            if (result == null){
+                showErrorDialog();
+            }else{
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray jsonList = jsonObject.getJSONArray("message");
+                for(int i = 0; i< jsonList.length(); i++){
+                    adapter.add(jsonList.getString(i));
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }catch (JSONException e){
+            Log.e("Error", "error", e);
+        }
+    }
+
+    private String getTeachers(String fullUrl) throws IOException {
+        URL url = new URL(fullUrl);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK){
+            InputStream in = url.openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            StringBuilder result = new StringBuilder();
+            String line;
+            while((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+            in.close();
+            return result.toString();
+        } else {
+            return  null;
+        }
+    }
+
+    private void showErrorDialog(){
+        AlertDialog.Builder errDialog = new AlertDialog.Builder(context);
+        errDialog.setMessage("Se ha producido un error conectando con el servidor.");
+        errDialog.setCancelable(false);
+        errDialog.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                new TeacherDAO(context, listView).execute(strParams);
+            }
+        });
+        errDialog.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertError = errDialog.create();
+        alertError.show();
+    }
+}
