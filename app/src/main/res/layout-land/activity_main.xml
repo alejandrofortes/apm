@@ -29,39 +29,37 @@
         android:text="@string/navButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="225dp"
-        android:layout_marginLeft="120dp"
         android:textSize="25dp"
         android:fontFamily="sans-serif-smallcaps"
         android:background="@color/colorAccent"
         android:textColor="@color/textColorPrimary"
-        android:onClick="openNavigation"/>
+        android:onClick="openNavigation"
+        android:layout_marginTop="79dp"
+        android:layout_below="@+id/txtName"
+        android:layout_alignLeft="@+id/buttonInformation"
+        android:layout_alignStart="@+id/buttonInformation"
+        android:layout_alignRight="@+id/buttonInformation"
+        android:layout_alignEnd="@+id/buttonInformation" />
 
     <Button
         android:id="@+id/buttonInformation"
         android:text="@string/infoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:layout_below="@+id/buttonNavigation"
         android:textSize="25dp"
         android:fontFamily="sans-serif-smallcaps"
         android:background="@color/colorAccent"
         android:textColor="@color/textColorPrimary"
-        android:layout_alignLeft="@+id/buttonNavigation"
-        android:layout_alignStart="@+id/buttonNavigation"
-        android:layout_alignRight="@+id/buttonNavigation"
         android:onClick="openNavigation"
-        android:layout_alignEnd="@+id/buttonNavigation" />
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/buttonNavigation"
+        android:layout_centerHorizontal="true" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/buttonInformation"
+        android:layout_alignTop="@+id/sing_out_button"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -69,7 +67,7 @@
         android:layout_width="wrap_content"
         android:text="@string/singOut"
         android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="14dp"
         android:layout_below="@+id/buttonInformation"
         android:layout_centerHorizontal="true" />
 
