@@ -34,8 +34,7 @@
         android:background="@color/colorAccent"
         android:textColor="@color/textColorPrimary"
         android:onClick="openNavigation"
-        android:layout_marginTop="79dp"
-        android:layout_below="@+id/txtName"
+        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/buttonInformation"
         android:layout_alignStart="@+id/buttonInformation"
         android:layout_alignRight="@+id/buttonInformation"
@@ -54,30 +53,4 @@
         android:layout_marginTop="15dp"
         android:layout_below="@+id/buttonNavigation"
         android:layout_centerHorizontal="true" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/sing_out_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/sing_out_button"
-        android:layout_width="wrap_content"
-        android:text="@string/singOut"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/buttonInformation"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="25dp"
-        android:text="" />
-
 </RelativeLayout>

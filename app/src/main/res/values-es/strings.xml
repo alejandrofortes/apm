@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- botones -->
+    <string name="navButton">Navegar</string>
+    <string name="infoButton">Información</string>
+
+    <!-- tabs -->
+    <string name="officesTab">Despachos</string>
+    <string name="othersTab">Otros</string>
+
+    <!-- menu -->
+    <string name="Login">Login</string>
+    <string name="sign_out">Cerrar sesión</string>
+
+    <string name="desconectar">Desconectar</string>
     <string name="singOut">Salir</string>
+
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="wait">Por favor, espere...</string>
+
+    <string name="ask_sign_out">¿Seguro que desea salir?</string>
 </resources>

@@ -22,6 +22,8 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+
+
     </android.support.design.widget.AppBarLayout>
 
     <Button
@@ -55,31 +57,4 @@
         android:layout_alignRight="@+id/buttonNavigation"
         android:onClick="openNavigation"
         android:layout_alignEnd="@+id/buttonNavigation" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/buttonInformation"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/sing_out_button"
-        android:layout_width="wrap_content"
-        android:text="@string/singOut"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:layout_below="@+id/buttonInformation"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="25dp"
-        android:text="" />
-
 </RelativeLayout>
