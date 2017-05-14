@@ -32,7 +32,7 @@ public class TeachersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        teachersLoaded = getArguments().getBoolean("teachersLoaded");
+        teachersLoaded = getArguments().getBoolean("teachersLoaded", false);
         teacherDB = new TeacherDB(getActivity());
     }
 

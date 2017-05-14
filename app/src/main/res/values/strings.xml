@@ -1,17 +1,25 @@
 <resources>
-    <string name="app_name">A2PJB</string>
+    <string name="app_name">Indoor Locator</string>
 
     <!-- buttons -->
-    <string name="navButton">Navegar</string>
-    <string name="infoButton">Información</string>
+    <string name="navButton">Navigate</string>
+    <string name="infoButton">Information</string>
 
     <!-- tabs -->
     <string name="officesTab">Despachos</string>
     <string name="othersTab">Otros</string>
-    <string name="Login">Login</string>
-    <string name="sign_out">Salir</string>
-    <string name="desconectar">Desconectar</string>
-    <string name="singOut">Salir</string>
-    <string name="download">Descarga</string>
 
+    <!-- menu -->
+    <string name="Login">Login</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="desconectar">Disconnect</string>
+    <string name="singOut">Sing Out</string>
+
+    <string name="accept">Accept</string>
+    <string name="cancel">Cancel</string>
+    <string name="wait">Please wait...</string>
+
+    <string name="ask_sign_out">¿Seguro que desea salir?</string>
+    <string name="synchronize">Synchronize</string>
 </resources>

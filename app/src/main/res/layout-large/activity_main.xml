@@ -22,8 +22,6 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-
-
     </android.support.design.widget.AppBarLayout>
 
     <Button
@@ -57,4 +55,5 @@
         android:layout_alignRight="@+id/buttonNavigation"
         android:onClick="openNavigation"
         android:layout_alignEnd="@+id/buttonNavigation" />
+
 </RelativeLayout>

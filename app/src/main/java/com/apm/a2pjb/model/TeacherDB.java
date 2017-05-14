@@ -120,4 +120,12 @@ public class TeacherDB extends SQLiteOpenHelper{
         db.close();
         return teacherList;
     }
+
+    public void deleteAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (db != null){
+            db.delete(tableName,null,null);
+        }
+        db.close();
+    }
 }
