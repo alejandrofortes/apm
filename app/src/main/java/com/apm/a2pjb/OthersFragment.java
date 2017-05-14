@@ -1,7 +1,5 @@
 package com.apm.a2pjb;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.apm.a2pjb.dao.TeacherDAO;
-import com.apm.a2pjb.model.Teacher;
+import com.apm.a2pjb.model.TeacherTask;
 import com.apm.a2pjb.model.TeacherDB;
 
 import java.util.ArrayList;
@@ -50,7 +47,7 @@ public class OthersFragment extends Fragment {
         listView.setAdapter(new ArrayAdapter<>(getActivity().getApplicationContext(),
                 R.layout.custom_textview, elements));
         if (!teachersLoaded){
-            new TeacherDAO(getActivity(),listView).execute("rooms");
+            new TeacherTask(getActivity(),listView).execute("rooms");
         }else{
             List<String> teacherList = teacherDB.getRooms();
             elements.addAll(teacherList);

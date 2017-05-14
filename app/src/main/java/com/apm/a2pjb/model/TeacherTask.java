@@ -1,4 +1,4 @@
-package com.apm.a2pjb.dao;
+package com.apm.a2pjb.model;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -26,14 +26,14 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by pablo on 10/4/17.
  */
 
-public class TeacherDAO extends AsyncTask<String, Void, String> {
+public class TeacherTask extends AsyncTask<String, Void, String> {
 
     private String url = "http://192.168.0.102:8080/api/";
     private ArrayAdapter<String> adapter;
     private ListView listView;
     private Context context;
 
-    public TeacherDAO(Context mContext, ListView listView) {
+    public TeacherTask(Context mContext, ListView listView) {
         this.context = mContext;
         this.listView = listView;
     }
@@ -106,7 +106,7 @@ public class TeacherDAO extends AsyncTask<String, Void, String> {
         errDialog.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
-                new TeacherDAO(context, listView).execute(strParams);
+                new TeacherTask(context, listView).execute(strParams);
             }
         });
         errDialog.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
