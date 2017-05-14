@@ -1,29 +1,52 @@
 package com.apm.a2pjb.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class Teacher {
 
+    private Long id;
     private String name;
     private String job;
     private String department;
     private String office;
     private Integer extension;
     private String email;
-    private List<String> others;
 
 
     public Teacher() {
     }
 
-    public Teacher(String name, String job, String department, String office, Integer extension, String email, List<String> others) {
+    public Teacher(String name, String job, String department, String office, Integer extension, String email) {
         this.name = name;
         this.job = job;
         this.department = department;
         this.office = office;
         this.extension = extension;
         this.email = email;
-        this.others = others;
+    }
+
+    public Teacher(JSONObject jsonObject) {
+        try {
+            this.name = jsonObject.getString("name");
+            this.job = jsonObject.getString("job");
+            this.department = jsonObject.getString("dept");
+            this.office = jsonObject.getString("room");
+            this.extension = jsonObject.getInt("ext");
+            this.email = jsonObject.getString("email");
+        }catch (JSONException e){
+            new Teacher();
+        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -74,11 +97,4 @@ public class Teacher {
         this.email = email;
     }
 
-    public List<String> getOthers() {
-        return others;
-    }
-
-    public void setOthers(List<String> others) {
-        this.others = others;
-    }
 }

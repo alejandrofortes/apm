@@ -28,10 +28,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class TeacherDAO extends AsyncTask<String, Void, String> {
 
-    private String url = "http://192.168.0.108:8080/api/";
+    private String url = "http://192.168.0.102:8080/api/";
     private ArrayAdapter<String> adapter;
     private ListView listView;
-    private String[] strParams;
     private Context context;
 
     public TeacherDAO(Context mContext, ListView listView) {
@@ -46,7 +45,6 @@ public class TeacherDAO extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        this.strParams = params;
         String resource = (params != null && params.length > 0) ? params[0] : null;
         String roomNumber = (params != null && params.length > 1) ? params[1] : null;
         String fullUrl = (resource != null) ? url+resource+"/": url;
@@ -100,7 +98,9 @@ public class TeacherDAO extends AsyncTask<String, Void, String> {
     }
 
     private void showErrorDialog(){
-        AlertDialog.Builder errDialog = new AlertDialog.Builder(context);
+        Toast toast = Toast.makeText(context, "Se ha producido un error conectando con el servidor", Toast.LENGTH_SHORT);
+        toast.show();
+       /* AlertDialog.Builder errDialog = new AlertDialog.Builder(context);
         errDialog.setMessage("Se ha producido un error conectando con el servidor.");
         errDialog.setCancelable(false);
         errDialog.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
@@ -115,6 +115,6 @@ public class TeacherDAO extends AsyncTask<String, Void, String> {
             }
         });
         AlertDialog alertError = errDialog.create();
-        alertError.show();
+        alertError.show();*/
     }
 }

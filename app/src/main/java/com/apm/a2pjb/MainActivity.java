@@ -1,8 +1,11 @@
 package com.apm.a2pjb;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apm.a2pjb.model.Teacher;
+import com.apm.a2pjb.model.TeacherDB;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -24,12 +29,28 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private Toolbar toolbar;
 
     private SignInButton btnSignIn;
     private Button btnSignOut;
+    private Button btnDownload;
 
     private TextView txtNombre;
 
@@ -37,6 +58,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static final int RC_SIGN_IN = 1001;
 
     private ProgressDialog progressDialog;
+    private TeacherDB teacherDB;
+    private boolean teachersLoaded;
+
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg){
+            setTeachersLoaded(true);
+            btnDownload.setVisibility(View.INVISIBLE);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        btnDownload = (Button) findViewById(R.id.downloadButton);
 
         btnSignIn = (SignInButton)findViewById(R.id.sign_in_button);
         btnSignOut = (Button)findViewById(R.id.sing_out_button);
@@ -91,19 +123,24 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-
+        teachersLoaded = getTeachersLoaded();
+        if (teachersLoaded){
+            btnDownload.setVisibility(View.INVISIBLE);
+        }
+        teacherDB = new TeacherDB(getApplicationContext());
         updateUI(false);
     }
 
     public void openNavigation(View view) {
         Intent intent = new Intent(this, NavigationActivity.class);
+        intent.putExtra("teachersLoaded", teachersLoaded);
         startActivity(intent);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this, "Error de conexion!", Toast.LENGTH_SHORT).show();
         Log.e("GoogleSignIn", "OnConnectionFailed: " + connectionResult);
+        Toast.makeText(this, "Error de conexión!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -122,11 +159,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
             txtNombre.setText(acct.getDisplayName());
-            Uri personPhoto = acct.getPhotoUrl();
+            hideProgressDialog();
             updateUI(true);
         } else {
             hideProgressDialog();
-            Toast.makeText(this, "Error de login!", Toast.LENGTH_SHORT).show();
             updateUI(false);
         }
     }
@@ -178,5 +214,56 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.hide();
         }
+    }
+
+    public void downloadData(View view){
+ //       ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        if (!teachersLoaded && activeNetwork.isConnectedOrConnecting() && (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)){
+        if (!teachersLoaded){
+            Runnable r = new Runnable() {
+                @Override
+                public void run() {
+                    try{
+                        URL url = new URL("http://192.168.0.102:8080/api/all");
+                        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                        if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK){
+                            InputStream in = url.openStream();
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                            List<Teacher> result = new ArrayList<>();
+                            String line;
+                            while((line = reader.readLine()) != null) {
+                                JSONObject message = new JSONObject(line);
+                                JSONArray teachers = (JSONArray) message.get("message");
+                                for (int i = 0; i<teachers.length(); i++){
+                                    result.add(new Teacher(teachers.getJSONObject(i)));
+                                }
+                            }
+                            in.close();
+                            handler.sendEmptyMessage(0);
+                            teacherDB.createAll(result);
+                        }
+                    }catch (IOException | JSONException e){
+                        handler.sendEmptyMessage(0);
+                    }
+                }
+
+            };
+            Thread download = new Thread(r);
+            download.start();
+       }
+    }
+
+    private boolean getTeachersLoaded(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        return sharedPref.getBoolean("teachersLoaded", false);
+    }
+
+    private void setTeachersLoaded(Boolean teachersLoaded){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean("teachersLoaded", teachersLoaded);
+        editor.commit();
     }
 }

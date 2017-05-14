@@ -17,12 +17,14 @@ public class NavigationActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private Boolean teachersLoaded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        teachersLoaded = getIntent().getBooleanExtra("teachersLoaded", false);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -38,8 +40,14 @@ public class NavigationActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         NavigationActivity.ViewPagerAdapter adapter =
                 new NavigationActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TeachersFragment(), getString(R.string.officesTab));
-        adapter.addFragment(new OthersFragment(), getString(R.string.othersTab));
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("teachersLoaded", teachersLoaded);
+        TeachersFragment teachersFragment = new TeachersFragment();
+        teachersFragment.setArguments(bundle);
+        OthersFragment othersFragment = new OthersFragment();
+        othersFragment.setArguments(bundle);
+        adapter.addFragment(teachersFragment, getString(R.string.officesTab));
+        adapter.addFragment(othersFragment, getString(R.string.othersTab));
         viewPager.setAdapter(adapter);
     }
 

@@ -72,6 +72,16 @@
         android:layout_below="@+id/buttonInformation"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:id="@+id/downloadButton"
+        android:layout_width="wrap_content"
+        android:text="@string/download"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/buttonInformation"
+        android:onClick="downloadData"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
