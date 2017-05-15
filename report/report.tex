@@ -70,12 +70,60 @@
     \section{Sensórica y geolocalización}
 	En este apartado vamos a ver los elementos de sensórica utilizados en este proyecto, en este caso principal mente el uso del acelerómetro para el conteo de pasos realizados.
 	\newline
-
+	\subsection{Introducción}
 	\hspace{1mm}El acelerómtero es un tipo de sensor hardware que mide el cambio en la velocidad a lo largo de los tres ejes (X, Y, Z).
 	\newline
-	\includegraphics[width=15cm]{img/ejes.png}
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.65]{img/ejes.png}
+			\caption{Ejes de coordenadas}
+		\end{center}
+	\end{figure}
 
-	
+	Con esto podemos detectar movimientos del dispositivo.
+
+	\subsection{Metodos principales}
+	\begin{itemize}
+		\item \textbf{onCreate()}: En este método vamos a instanciar la clase SensorManager para poder obtener información y tener acceso a los sensores del sistema, y además, la parte mas importante para poder recaudar información sobre el Acelerómetro en este caso, es en la que definimos un Listener en el SensorManager\newline\\
+		Además estamos registrando un listener el cuál acepta como parámetros el Context de nuestra Activity, el sensor que queremos registrar, si es que se ha encontrado, y una constante que recaudará los datos a una velocidad determinada. En este caso hemos escogido SENSOR DELAY FASTET.
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.55]{img/onCreate.png}
+				\caption{Método onCreate()}
+			\end{center}
+		\end{figure}\\
+
+		\item \textbf{onResume()}: Si nuestra aplicación por alguna razón pasa por el método onPause, dejará de obtener los datos, por lo que si entraramos de nuevo no tendríamos respuesta, es por ello que hay que sustituir este método para volver a extraer la información.\newline\\
+		Análogamente al metodo onCreate, volvemos a hacer uso de la clase SensorManager y el método registerListener en el cuál pasaremos como parámetros el Context de la actividad, el tipo de sensor que queremos registrar y la velocidad a la que se extraen los datos.
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.55]{img/onResume.png}
+				\caption{Método onResume()}
+			\end{center}
+		\end{figure}\\
+		\item \textbf{onPause()}: Implementaremos este método para protegernos de un gasto desmesurado de la batería, que sería provocado al tener que salir de la aplicación. Si no el listener seguiría trabajando, y por tanto seguiría extrayendo datos del sensor. Para evitar esto dejamos de registrar el listener en el SensorManager cuando la actividad entre en estado de pausa.\newline\\
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.55]{img/onPause.png}
+				\caption{Método onPause()}
+			\end{center}
+		\end{figure}\\
+		\item \textbf{onStop()}: Analogamente al onPause(), quitamos el registro del listener en el SensorManager antes de cerrar la actividad.\newline\\
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.55]{img/onStop.png}
+				\caption{Método onStop()}
+			\end{center}
+		\end{figure}\\
+		\item \textbf{onSensorChanged()}: Este método se ejecutará siempre y cuando cambie algun valor del sensor. En este caso, si el evento tiene que ver con el Acelerómetro, refrescamos los valores de X, Y y Z, y realizamos el algoritmo que nos permite saber si el movimiento se corresponde con un paso.
+		\begin{figure}[h!]
+			\begin{center}
+				\includegraphics[scale=0.55]{img/onSensorChanged.png}
+				\caption{Método onSensorChanged()}
+			\end{center}
+		\end{figure}\\
+		\item \textbf{onAccuracyChanged}: este sería el método donde deberíamos implementar las acciones a realizar si la precisión del sensor cambia, en este caso no realizaremos ninguna ya que no lo consideramos necesario, pero es igualmente es necesario declararlo.
+	\end{itemize}
 	\clearpage
 
 	\section{APIs}
