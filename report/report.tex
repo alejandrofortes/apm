@@ -79,7 +79,67 @@
 	\clearpage
 
 	\section{APIs}
-
+	En este apartado vamos a ver el control de acceso de la aplicación, la obtención de información sobre los profesores y los despachos, y la persistencia de esta información.
+	
+	\subsection{Acceso a la aplicación}
+		\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.15]{img/login.png}
+			\caption{Login de la aplicación}
+		\end{center}
+	\end{figure}
+	
+	Como se puede ver en la imagen superior hemos optado por utilizar el login de Google, para dotar a nuestra aplicación de autenticación. El flujo para la autenticación es el siguiente:
+	\begin{enumerate}
+		\item Primero se intenta acceder sin que el usuario tenga que realizar ninguna acción.
+		\item Si es posible, el usuario ya autenticado accede a la aplicación
+		\item En caso contrario, se le da la opción al usuario de acceder de forma manual, bien utilizando una cuenta de su dispositivo, o bien introduciendo una nueva dirección de correo y una clave. La api de Google también da la opción de crear una nueva cuenta.
+		\item Una vez autenticado el usuario accede a la aplicación.
+	\end{enumerate}
+	\subsection{Obtención de información}
+	Para este punto hemos optado por crear nuestro propio servidor web REST dado que no existe un servicio web que nos permita disponer de esta información. Este servidor tiene implementados cinco métodos que permiten acceder a la información de diferentes profesores en formato JSON. Estos métodos son: 
+	\begin{itemize}
+		\item GET <<server>>/api/rooms/: permite obtener una lista de las salas de la planta.
+		\item GET <<server>>/api/rooms/\{id\}: permite obtener la información de una sala en concreto.
+		\item GET <<server>>/api/teachers/: permite obtener una lista de todos los profesores.
+		\item GET <<server>>/api/teachers/\{name\}:  permite obtener la información de un profesor en concreto.
+		\item GET <<server>>/api/all/:  permite obtener toda la información disponible.
+	\end{itemize}
+	Estos métodos son invocados desde la aplicación mediante \textit{AsyncTasks} con excepción de la última que se ejecuta thread ya que suponemos que en una aplicación un poco mas grande excedería la duración recomendada para una \textit{AsyncTask}.\\
+	La clase \textit{TeachersTask} es la encargada de hacer estas peticiones, y es utilizada desde las clases \textit{TeacherFragment} y \textit{OthersFragment} siempre y cuando el flag \textit{teachersLoaded} (del que se hablará en el siguiente apartado) tenga valor negativo.
+	
+	\subsection{Persistencia}
+	La aplicación permite sincronizar los datos obtenidos mediante el servicio web REST mencionado en el apartado anterior y almacenarlos en una base de datos para evitar futuras llamadas al servicio y reducir el consumo de datos de la aplicación.
+	Esta opción esta disponible en el menú superior, bajo el nombre de Sincronizar. Esta opción solamente estará disponible si tenemos una conexión WIFI activa.\\
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.15]{img/menu_sincronizar.png}
+			\caption{Imagen de la opción de Sincronizar}
+		\end{center}
+	\end{figure}
+	
+	Al pulsar sobre esta opción se iniciará el proceso siguiente:
+	\begin{enumerate}
+		\item Se lanza en un nuevo thread, una petición al servicio web REST para obtener todos los datos.
+		\item Se procesa la respuesta de la petición y se convierte el JSON obtenido en objetos de tipo \textit{Teacher}.
+		\item Dependiendo del valor de la variable \textit{teachersLoaded} que indica si esta operación se ha llevado a cabo con anterioridad, se elimina el contenido actual de la base de datos.
+		\item A continuación se insertan en la base de datos la nueva información
+		\item Por último se modifica el valor de la variable \textit{teachersLoaded} y se guarda en el archivo de preferencias compartidas de la aplicación.
+	\end{enumerate}	
+	
+	A partir de este momento ya no se necesitará mas el servidor REST, dado que, en su lugar se harán las peticiones correspondientes a la base de datos.\\
+	En está base de datos quedará almacenada una tabla \textit{Teachers} que tendrá los siguientes atributos.
+	\begin{itemize}
+		\item \textbf{Id}: Identificador único de usuario. (generado automáticamente por la base de datos)
+		\item \textbf{name}: Nombre. 
+		\item \textbf{department}: Departamento.
+		\item  \textbf{job}: Puesto de trabajo.
+		\item \textbf{office}: Despacho del profesor.
+		\item \textbf{extension}: Extensión telefónica.
+		\item \textbf{email}: Dirección de correo electrónico.
+	\end{itemize}
+	
 	\clearpage
 
 	\section{Realidad aumentada}
