@@ -60,11 +60,88 @@
 	\clearpage
 
 	\section{CEO}
-
+	
+	\subsection{Introducción}
+	
+	El objetivo principal de la práctica es desarrollar una aplicación móvil de realidad aumentada. Para ello, se ha diseñado un sistema para indicar la ruta a un destino dentro de un edificio. Además, la aplicación permite la visualización de datos de interés de los elementos del edificio (información de los miembros de la facultad, horarios de una oficina, etc).
+	
+	\subsection{Arquitectura}
+	
+	En la \autoref{diagrama} se muestra la estructura general de la aplicación.
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.65]{img/diagrama.png}
+			\caption{Arquitectura general de la aplicación}
+			\label{diagrama}
+		\end{center}
+	\end{figure}
+	
+	En el directorio \textit{src} se localizan los archivos Java de la aplicación, y lo conforman los siguientes elementos:
+	\begin{itemize}
+		\item \textbf{Actividades:} contienen la lógica de la aplicación. Para nombrar las actividades se usa la convención \textit{*Activity.java}, sustituyendo el carácter “*” por un nombre que describa el comportamiento esencial de la actividad. Por ejemplo, a la actividad principal de la aplicación se le da el nombre \textit{MainActivity}.
+		\item \textbf{Fragmentos:} contienen el comportamiento una parte de la interfaz de usuario. La aplicación contiene dos fragmentos, llamados \textit{TeachersFragment} y \textit{OthersFragment:}
+		\item \textbf{Model:} contiene las clases descritas a continuación.
+		\begin{itemize}
+			\item \textbf{Teacher:} objeto que modela la entidad profesor.
+			\item \textbf{TeacherDB:} implementa el proceso de obtención de datos desde el servidor.
+			\item \textbf{TeacherTask:} implementa las peticiones asíncronas al servidor.
+		\end{itemize}
+	\end{itemize}
+	
+	Todos los recursos utilizados a lo largo de la aplicación son almacenados en el directorio \textit{res}. Es de gran utilidad para almacenar recursos tales como iconos, strings o colores. Cada tipo de recurso se almacena en un subdirectorio específico. En este proyecto los subdirectorios de recursos destacados son:
+	\begin{itemize}
+		\item \textbf{drawable}: en este directorio se encuentran las imágenes en formato PNG o JPEG.
+		\item \textbf{menu}: archivos XML en los que se definen las plantillas de los menús del proyecto.
+		\item \textbf{layout}: contiene archivos XML que definen el diseño de la interfaz de usuario.
+		\item \textbf{mipmap}: en él se almacenan los iconos de la aplicación con sus diferentes resoluciones.
+		\item \textbf{values}: almacena archivos XML que definen valores constantes. Se organizan el ficheros que contienen recursos del mismo tipo, como por ejemplo el archivo \textit{strings.xml} que contiene las cadenas de texto de la aplicación. Existe un subdirectorio específico llamado styles en el que se definen los estilos y temas la aplicación.
+	\end{itemize}
+	
 	\clearpage
-
+	
 	\section{UX}
-
+	
+	En la siguiente sección mostraremos los principales aspectos de experiencia de usuario que hemos tenido en cuenta mientras desarrollábamos la aplicación. 
+	
+	\subsection{Diseño}
+	
+	A la hora de mejorar la experiencia de usuario, se ha tratado de realizar un diseño lo más simplificado posible. Por ejemplo, en la pantalla principal (\autoref{mainactivity}) se ha decidido incluir únicamente dos botones: uno que inicia el proceso de navegación a una localización y otro para hacer uso de la cámara para, a través de realidad aumentada, mostrar información de un punto de interés en concreto.
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.30]{img/main.jpg}
+			\caption{Actividad principal de la aplicación}
+			\label{mainactivity}
+		\end{center}
+	\end{figure}
+	
+	Para distinguir el listado de profesores del listado de lugares de interés de un edificio, se ha implementado un sistema de pestañas (\autoref{despachos}). Ambas listas han sido implementadas sobre \textit{fragments}. 
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.30]{img/despachos.jpg}
+			\caption{Login de la aplicación}
+			\label{despachos}
+		\end{center}
+	\end{figure}
+	
+	\clearpage
+	
+	\subsection{Menús}
+	
+	Además de los botones de la pantalla principal, se ha incluido un menú en la parte superior derecha de la aplicación con dos opciones:
+	\begin{enumerate}
+		\item \textbf{Sincronizar:} permite refrescar los datos de la aplicación, evitando así realizar continuas peticiones al servidor.
+		\item \textbf{Cerrar sesión:} da la posibilidad de cerrar la sesión de usuario.
+	\end{enumerate}
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[scale=0.15]{img/menu_sincronizar.png}
+			\caption{Principales menús de la aplicación}
+		\end{center}
+	\end{figure}
 	\clearpage
 
     \section{Sensórica y geolocalización}
