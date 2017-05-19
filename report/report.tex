@@ -129,7 +129,24 @@
     		\item \textbf{onAccuracyChanged}: este sería el método donde deberíamos implementar las acciones a realizar si la precisión del sensor cambia, en este caso no realizaremos ninguna ya que no lo consideramos necesario, pero es igualmente necesario declararlo.
     	\end{itemize}
 
-    	\subsection{Funcionalidad dentro de la app}
+    	\subsection{Vistas  dentro de la app}
+
+        	En la siguiente imagen vemos la vista del contador de pasos de la app.
+        	\begin{figure}[h!]
+        		\begin{center}
+        			\includegraphics[scale=0.25]{img/steps.png}
+        			\caption{Vista de los pasos en la app}
+        		\end{center}
+        	\end{figure}
+
+        	En el caso poco probable de que la versión de Android sea anterior a la 4.1, el sensor no será detectado.
+
+        		\begin{figure}[h!]
+        			\begin{center}
+        				\includegraphics[scale=0.45]{img/notFound.png}
+        				\caption{Sensor no encontrado}
+        			\end{center}
+        		\end{figure}
 	\clearpage
 
 	\section{APIs}
