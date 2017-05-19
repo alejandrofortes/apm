@@ -68,62 +68,68 @@
 	\clearpage
 
     \section{Sensórica y geolocalización}
-	En este apartado vamos a ver los elementos de sensórica utilizados en este proyecto, en este caso principal mente el uso del acelerómetro para el conteo de pasos realizados.
-	\newline
-	\subsection{Introducción}
-	\hspace{1mm}El acelerómtero es un tipo de sensor hardware que mide el cambio en la velocidad a lo largo de los tres ejes (X, Y, Z).
-	\newline
-	\begin{figure}[h!]
-		\begin{center}
-			\includegraphics[scale=0.65]{img/ejes.png}
-			\caption{Ejes de coordenadas}
-		\end{center}
-	\end{figure}
+		En este apartado vamos a ver los elementos de sensórica utilizados en este proyecto, en este caso principalmente el uso de un sensor hardware que permite contar los pasos realizados.
+    	\newline
+    	\subsection{Introducción}
+    	En versiones más antiguas de Android el conteo de pasos se realizaba leyendo directamente los datos del acelerómetro, que mide el cambio en la velocidad a lo largo de los tres ejes (X, Y, Z).
+    	\newline
+    	\begin{figure}[h!]
+    		\begin{center}
+    			\includegraphics[scale=0.65]{img/ejes.png}
+    			\caption{Ejes de coordenadas}
+    		\end{center}
+    	\end{figure}\\
 
-	Con esto podemos detectar movimientos del dispositivo.
+    	Sin embargo, en este caso haremos uso de un sensor que nos proporcionan los dispositivos Android desde la versión 4.1, ya que consideramos que es una versión de Android relativamente antigua, y que abarcará a la inmensa mayoría de usuarios. Este es el sensor TYPE STEP COUNTER, ya que este activa un evento con cada paso detectado. También tendríamos la opción de usar TYPE STEP DETECTOR, pero los eventos TYPE STEP COUNTER se producen con una latencia mayor que aquellos que se generan desde TYPE STEP DETECTOR, eso se debe a que el algoritmo TYPE STEP COUNTER realiza un mayor procesamiento para eliminar los falsos positivos. Por lo tanto, TYPE STEP COUNTER puede ser más lento para generar los eventos, pero los resultados deben ser más precisos, con lo cual en este caso nos quedaremos con este último.
 
-	\subsection{Metodos principales}
-	\begin{itemize}
-		\item \textbf{onCreate()}: En este método vamos a instanciar la clase SensorManager para poder obtener información y tener acceso a los sensores del sistema, y además, la parte mas importante para poder recaudar información sobre el Acelerómetro en este caso, es en la que definimos un Listener en el SensorManager\newline\\
-		Además estamos registrando un listener el cuál acepta como parámetros el Context de nuestra Activity, el sensor que queremos registrar, si es que se ha encontrado, y una constante que recaudará los datos a una velocidad determinada. En este caso hemos escogido SENSOR DELAY FASTET.
-		\begin{figure}[h!]
-			\begin{center}
-				\includegraphics[scale=0.55]{img/onCreate.png}
-				\caption{Método onCreate()}
-			\end{center}
-		\end{figure}\\
+    	Una consideración muy importante a tener en cuenta, es que el TYPE STEP COUNTER solo se reinicia cuando se hace un reboot del dispositivo, así que deberemos tenerlo en cuenta para el correcto funcionamiento de la app, ya que debemos "reiniciarlo" virtualmente nosotros, para mostrar los pasos realizados desde la última apertura de la app.
 
-		\item \textbf{onResume()}: Si nuestra aplicación por alguna razón pasa por el método onPause, dejará de obtener los datos, por lo que si entraramos de nuevo no tendríamos respuesta, es por ello que hay que sustituir este método para volver a extraer la información.\newline\\
-		Análogamente al metodo onCreate, volvemos a hacer uso de la clase SensorManager y el método registerListener en el cuál pasaremos como parámetros el Context de la actividad, el tipo de sensor que queremos registrar y la velocidad a la que se extraen los datos.
-		\begin{figure}[h!]
-			\begin{center}
-				\includegraphics[scale=0.55]{img/onResume.png}
-				\caption{Método onResume()}
-			\end{center}
-		\end{figure}\\
-		\item \textbf{onPause()}: Implementaremos este método para protegernos de un gasto desmesurado de la batería, que sería provocado al tener que salir de la aplicación. Si no el listener seguiría trabajando, y por tanto seguiría extrayendo datos del sensor. Para evitar esto dejamos de registrar el listener en el SensorManager cuando la actividad entre en estado de pausa.\newline\\
-		\begin{figure}[h!]
-			\begin{center}
-				\includegraphics[scale=0.55]{img/onPause.png}
-				\caption{Método onPause()}
-			\end{center}
-		\end{figure}\\
-		\item \textbf{onStop()}: Analogamente al onPause(), quitamos el registro del listener en el SensorManager antes de cerrar la actividad.\newline\\
-		\begin{figure}[h!]
-			\begin{center}
-				\includegraphics[scale=0.55]{img/onStop.png}
-				\caption{Método onStop()}
-			\end{center}
-		\end{figure}\\
-		\item \textbf{onSensorChanged()}: Este método se ejecutará siempre y cuando cambie algun valor del sensor. En este caso, si el evento tiene que ver con el Acelerómetro, refrescamos los valores de X, Y y Z, y realizamos el algoritmo que nos permite saber si el movimiento se corresponde con un paso.
-		\begin{figure}[h!]
-			\begin{center}
-				\includegraphics[scale=0.55]{img/onSensorChanged.png}
-				\caption{Método onSensorChanged()}
-			\end{center}
-		\end{figure}\\
-		\item \textbf{onAccuracyChanged}: este sería el método donde deberíamos implementar las acciones a realizar si la precisión del sensor cambia, en este caso no realizaremos ninguna ya que no lo consideramos necesario, pero es igualmente es necesario declararlo.
-	\end{itemize}
+    	\subsection{Metodos principales}
+    	\begin{itemize}
+    		\item \textbf{onCreate()}: En este método vamos a instanciar la clase SensorManager para poder obtener información y tener acceso a los sensores del sistema\newline\\
+
+    		\begin{figure}[h!]
+    			\begin{center}
+    				\includegraphics[scale=0.55]{img/onCreate.png}
+    				\caption{Método onCreate()}
+    			\end{center}
+    		\end{figure}
+    		\item \textbf{onResume()}: Si nuestra aplicación por alguna razón pasa por el método onPause, dejará de obtener los datos, por lo que si entraramos de nuevo no tendríamos respuesta, es por ello que hay que sustituir este método para volver a extraer la información.\newline\\
+    		Análogamente al metodo onCreate, volvemos a hacer uso de la clase SensorManager para recoger los sensores TYPE STEP COUNTER, y además en el caso de que se haya encontrado, registramos un listener el cuál acepta como parámetros el Context de nuestra Activity, el sensor que queremos registrar, si es que se ha encontrado, y una constante que recaudará los datos a una velocidad determinada. En este caso hemos escogido como constante de velocidad SENSOR DELAY IU. \newline\\
+
+    		En el caso de no encontrar el sensor que estamos utilizando, se lanzará un Toast de aviso.
+    		\begin{figure}[h!]
+    			\begin{center}
+    				\includegraphics[scale=0.55]{img/onResume.png}
+    				\caption{Método onResume()}
+    			\end{center}
+    		\end{figure}\\
+    		\item \textbf{onPause()}: En este método tendríamos dos opciones, o bien protegernos de un gasto desmesurado de la batería, que sería provocado al tener que salir de la aplicación. Para evitar esto dejariamos de registrar el listener en el SensorManager cuando la actividad entrase en estado de pausa y evitar así que siguiera extrayendo datos del sensor.\newline\\
+    		Sin embargo hemos optado por no hacerlo, ya que consideramos que en el uso de nuestra aplicación no tendría mucho sentido dejar de registrar los pasos aún con la aplicación en estado de pausa. A pesar de esto, si quisieramos cambiar dicha configuración sería tan sencillo como descomentar la linea 46 de la siguiente imagen.
+    		\begin{figure}[h!]
+    			\begin{center}
+    				\includegraphics[scale=0.55]{img/onPause.png}
+    				\caption{Método onPause()}
+    			\end{center}
+    		\end{figure}\\
+    		\item \textbf{onStop()}: Al contrario de lo que hemos hecho en el método onPause(), en este método si quitamos el registro del listener en el SensorManager antes de cerrar la actividad, ya que una vez cerrada no tendría sentido seguir extrayendo datos del sensor, y nos crearía un serio problema de consumo de batería.\newline\\
+    		\begin{figure}[h!]
+    			\begin{center}
+    				\includegraphics[scale=0.55]{img/onStop.png}
+    				\caption{Método onStop()}
+    			\end{center}
+    		\end{figure}\\
+    		\item \textbf{onSensorChanged()}: Este método se ejecutará siempre y cuando cambie algun valor del sensor. En este caso, primero comprobamos si la app está ejecutandose, y si es el caso se muestra el valor en pantalla.
+    		\begin{figure}[h!]
+    			\begin{center}
+    				\includegraphics[scale=0.55]{img/onSensorChanged.png}
+    				\caption{Método onSensorChanged()}
+    			\end{center}
+    		\end{figure}\\
+    		\item \textbf{onAccuracyChanged}: este sería el método donde deberíamos implementar las acciones a realizar si la precisión del sensor cambia, en este caso no realizaremos ninguna ya que no lo consideramos necesario, pero es igualmente necesario declararlo.
+    	\end{itemize}
+
+    	\subsection{Funcionalidad dentro de la app}
 	\clearpage
 
 	\section{APIs}
