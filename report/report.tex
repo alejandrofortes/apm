@@ -212,9 +212,53 @@
 	\end{itemize}
 	
 	\clearpage
+\section{Realidad aumentada}
+Para la realidad aumentada se ha utilizado Vuforia y Unity. Dentro de la aplicación, se muestran unas flechas con indicaciones para llegar a los despachos.
 
-	\section{Realidad aumentada}
+\subsection{Marcadores}
 
+La aplicación dispone de 3 marcadores, uno al lado del ascensor en la planta 2 del edificio del área científica de la UDC, otro al lado del ascensor en la planta 3, y otro en la puerta del despacho 3.14 del área científica de la UDC.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=15cm]{img/marcadores.png}
+		\caption{Marcadores utilizados}
+	\end{center}
+\end{figure}
+
+\clearpage
+\subsection{Funcionamiento}
+
+Aunque la idea es integrar la base de datos de despachos de la aplicación para dar indicaciones de cómo llegar a cada uno de ellos, por falta de tiempo solo se ha podido implementar las indicaciones para uno, el despacho 3.14 de la tercera planta.
+
+Al pasar por la entrada de la segunda planta, se muestra una flecha que nos da la indicación de subir.
+
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=13cm]{img/flechaarriba.png}
+			\caption{Indicaciones en la segunda planta}
+		\end{center}
+	\end{figure}
+	
+	Ya en la tercera planta, al lado del ascensor, podemos ver el siguiente marcador, que da la indicación de seguir por el pasillo de la derecha.
+	
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=13cm]{img/flechaderecha.png}
+			\caption{Indicaciones en la tercera planta}
+		\end{center}
+	\end{figure}
+	
+	\clearpage
+
+Siguiendo todo recto se llega al despacho, donde si se apunta a los nombres en la puerta del despacho, se despliega una fotografía del profesor con las horas de tutorías
+
+	\begin{figure}[h!]
+		\begin{center}
+			\includegraphics[width=14cm]{img/tutorias.png}
+			\caption{Información al llegar al despacho}
+		\end{center}
+	\end{figure}
 
 
 \end{document}
