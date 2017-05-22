@@ -1,19 +1,2 @@
-# a2pjb
-Repositorio de la practica de APM del MUEI
-
-Grupo: a2pjb
-
-Descripción del proyecto:
-
- Rutas en interiores:
- Dado un edificio, proponer un a ruta para llegar a la locaclización deseada por el usuario, basándose en marcadores distribuidos por el edificio.
-
-Miembros:
-
-Alejandro Fortes Lopes (CEO + UX)
-
-Boris Caballero Lenza (Responsable de Realidad Aumentada)
-
-Javier Rochela Calvo(Responsable de Sensórica y Geolocalización)
-
-Pablo Gómez Area(Responsable de Social Media y APIs)
+# Indoor Locator
+The main objective of the practice is to develop a mobile application of augmented reality. For this purpose, a system has been designed to indicate the route to a destination within a building. In addition, the application allows the visualization of data of interest of elements of the building (information of the faculty members, schedules of an office, etc).
