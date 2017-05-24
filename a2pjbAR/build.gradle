@@ -5,7 +5,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.1.0'
+		classpath 'com.android.tools.build:gradle:2.3.2'
 	}
 }
 
@@ -17,7 +17,7 @@ allprojects {
    }
 }
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -40,6 +40,7 @@ android {
 			jniDebuggable true
 		}
 		release {
+			// Set minifyEnabled to true if you want to run ProGuard on your project
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
 			

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/pablo/Documents/a2pjbAR/libs/unity-classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b541b7c350268dea27bb061eb4df5424e5aed649">
+        <dex dex="/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/2/unity-classes_cbd3f5d97a833f827396cd7c7e639f869c378a97/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pablo/Documents/a2pjbAR/libs/VuforiaUnityPlayer.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="240e5af6cbbcb24522c5f70695bee1c61a87bf11">
+        <dex dex="/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/2/VuforiaUnityPlayer_c8375c96f3e277a331f719dbde6588bf8a9e96bb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pablo/Documents/a2pjbAR/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2ff56647549c701ff0580a7247494c8aa4bf2e78">
+        <dex dex="/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_eb0c66d46eb926ccc5eff556979a04f37fb6769c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pablo/Documents/a2pjbAR/libs/Vuforia.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0c273dd9fa2eed345a0a3f11e2c0f0db7e8cf2c8">
+        <dex dex="/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/2/Vuforia_ad01bd130d8cc5869d5c08e53ffa2c639af403b9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/pablo/Documents/a2pjbAR/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ccbebcf9d4d3fd3e417ec4f531a0248075ece5ed/classes.dex" />
+    </item>
+
+</items>

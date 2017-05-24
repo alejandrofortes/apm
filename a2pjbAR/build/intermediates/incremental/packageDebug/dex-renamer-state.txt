@@ -1,0 +1,7 @@
+#Wed May 24 17:43:06 CEST 2017
+base.0=/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_eb0c66d46eb926ccc5eff556979a04f37fb6769c
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ccbebcf9d4d3fd3e417ec4f531a0248075ece5ed/classes.dex
+base.1=/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ccbebcf9d4d3fd3e417ec4f531a0248075ece5ed
+file.0=/Users/pablo/Documents/a2pjbAR/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_eb0c66d46eb926ccc5eff556979a04f37fb6769c/classes.dex
