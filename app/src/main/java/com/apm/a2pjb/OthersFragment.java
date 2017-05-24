@@ -1,10 +1,12 @@
 package com.apm.a2pjb;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,6 +31,7 @@ public class OthersFragment extends Fragment {
         super.onCreate(savedInstanceState);
         teachersLoaded = getArguments().getBoolean("teachersLoaded", false);
         teacherDB = new TeacherDB(getActivity());
+
     }
 
     @Override
@@ -52,6 +55,16 @@ public class OthersFragment extends Fragment {
             List<String> teacherList = teacherDB.getRooms();
             elements.addAll(teacherList);
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                String entry = (String) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(getActivity(), SensorActivity.class);
+                intent.putExtra("DATA", entry);
+                startActivity(intent);
+            }
+        });
     }
 
 }

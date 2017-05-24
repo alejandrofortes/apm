@@ -1,15 +1,17 @@
 package com.apm.a2pjb;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.apm.a2pjb.model.TeacherTask;
 import com.apm.a2pjb.model.TeacherDB;
+import com.apm.a2pjb.model.TeacherTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,6 @@ public class TeachersFragment extends Fragment {
     public void onActivityCreated(Bundle state) {
         super.onActivityCreated(state);
         List<String> elements = new ArrayList<String>();
-
         listView = (ListView)getView().findViewById(R.id.techersListView);
         listView.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 R.layout.custom_textview, elements));
@@ -54,6 +55,16 @@ public class TeachersFragment extends Fragment {
             List<String> teacherList = teacherDB.getTeachers();
             elements.addAll(teacherList);
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                String entry = (String) parent.getAdapter().getItem(position);
+                Intent intent = new Intent(getActivity(), SensorActivity.class);
+                intent.putExtra("DATA", entry);
+                startActivity(intent);
+            }
+        });
     }
 }
 

@@ -1,8 +1,6 @@
 package com.apm.a2pjb.model;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -28,7 +26,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class TeacherTask extends AsyncTask<String, Void, String> {
 
-    private String url = "http://192.168.0.102:8080/api/";
+    public static final String URL = "http://ec2-34-253-85-79.eu-west-1.compute.amazonaws.com:8080/api/";
     private ArrayAdapter<String> adapter;
     private ListView listView;
     private Context context;
@@ -47,7 +45,7 @@ public class TeacherTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         String resource = (params != null && params.length > 0) ? params[0] : null;
         String roomNumber = (params != null && params.length > 1) ? params[1] : null;
-        String fullUrl = (resource != null) ? url+resource+"/": url;
+        String fullUrl = (resource != null) ? URL+resource+"/": URL;
         fullUrl = (roomNumber != null) ? fullUrl+"/"+roomNumber: fullUrl;
 
         try{
@@ -100,21 +98,5 @@ public class TeacherTask extends AsyncTask<String, Void, String> {
     private void showErrorDialog(){
         Toast toast = Toast.makeText(context, "Se ha producido un error conectando con el servidor", Toast.LENGTH_SHORT);
         toast.show();
-       /* AlertDialog.Builder errDialog = new AlertDialog.Builder(context);
-        errDialog.setMessage("Se ha producido un error conectando con el servidor.");
-        errDialog.setCancelable(false);
-        errDialog.setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-                new TeacherTask(context, listView).execute(strParams);
-            }
-        });
-        errDialog.setNegativeButton("Volver", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertError = errDialog.create();
-        alertError.show();*/
     }
 }

@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.apm.a2pjb.model.Teacher;
 import com.apm.a2pjb.model.TeacherDB;
-import com.apm.a2pjbAR.UnityPlayerNativeActivity;
+import com.apm.a2pjb.model.TeacherTask;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     public void openNavigation(View view) {
-        Intent intent = new Intent(this, UnityPlayerNativeActivity.class);
+        Intent intent = new Intent(this, NavigationActivity.class);
         startActivity(intent);
     }
 
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 @Override
                 public void run() {
                     try{
-                        URL url = new URL("http://192.168.0.102:8080/api/all");
+                        URL url = new URL(TeacherTask.URL+"all");
                         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                         if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK){
                             InputStream in = url.openStream();
