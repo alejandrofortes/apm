@@ -10,8 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.apm.a2pjb.model.TeacherTask;
 import com.apm.a2pjb.model.TeacherDB;
+import com.apm.a2pjb.model.TeacherTask;
+import com.apm.a2pjbAR.UnityPlayerNativeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class OthersFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 String entry = (String) parent.getAdapter().getItem(position);
-                Intent intent = new Intent(getActivity(), SensorActivity.class);
+                Intent intent = new Intent(getActivity(), UnityPlayerNativeActivity.class);
                 intent.putExtra("DATA", entry);
                 startActivity(intent);
             }
