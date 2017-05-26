@@ -55,6 +55,6 @@
         android:layout_alignLeft="@+id/buttonNavigation"
         android:layout_alignStart="@+id/buttonNavigation"
         android:layout_alignRight="@+id/buttonNavigation"
-        android:onClick="openNavigation"
+        android:onClick="openInformation"
         android:layout_alignEnd="@+id/buttonNavigation" />
 </RelativeLayout>

@@ -12,6 +12,7 @@
     <!-- menu -->
     <string name="Login">Login</string>
     <string name="sign_out">Cerrar sesión</string>
+    <string name="steps">Contador de pasos</string>
 
     <string name="desconectar">Desconectar</string>
     <string name="singOut">Salir</string>

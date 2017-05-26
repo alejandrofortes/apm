@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.apm.a2pjb.model.Teacher;
 import com.apm.a2pjb.model.TeacherDB;
 import com.apm.a2pjb.model.TeacherTask;
+import com.apm.a2pjbAR.UnityPlayerNativeActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -95,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
+    public void openInformation(View view) {
+        Intent intent = new Intent(this, UnityPlayerNativeActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Log.e("GoogleSignIn", "OnConnectionFailed: " + connectionResult);
@@ -150,6 +156,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         if (id == R.id.option_synchronize) {
             downloadData();
+        }
+
+        if (id == R.id.steps) {
+            Intent intent = new Intent(getApplicationContext(), SensorActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
